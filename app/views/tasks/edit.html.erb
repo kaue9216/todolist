@@ -1,0 +1,52 @@
+<div class="edit-container">
+  <%= form_for @task, html: { class: 'task-form' } do |form| %>
+    <div class="task-card">
+      <div class="task-header">
+        <div class="editable-field">
+          <%= form.label :task, "Tarefa:", class: 'field-label' %>
+          <%= form.text_field :task, class: 'field-input', value: @task.task %>
+        </div>
+
+        <div class="editable-field">
+          <%= form.label :date, "Data:", class: 'field-label' %>
+          <%= form.text_field :date, class: 'field-input', value: @task.date %>
+        </div>
+      </div>
+
+      <div class="task-description">
+        <%= form.label :description, "Descrição:", class: 'field-label' %>
+        <%= form.text_area :description, class: 'field-textarea', value: @task.description %>
+      </div>
+
+      <div class="task-status">
+        <%= form.label :done, "Status:", class: 'field-label' %>
+        <div class="toggle-container">
+          <%= form.hidden_field :done, value: @task.done, id: 'task_done_hidden' %>
+          <button type="button" class="toggle-button <%= 'active' if @task.done %>" id="done_toggle">
+            <%= @task.done ? '✓ Concluída' : '⌛ Pendente' %>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= form.submit "Voltar para tarefas", class: 'save-button' %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="danger-zone">
+    <%= button_to "Finalizar esta tarefa", @task, method: :delete,
+                  class: 'delete-button',
+                  data: { confirm: 'Tem certeza que deseja deletar esta tarefa?' } %>
+  </div>
+</div>
+
+<script>
+  document.getElementById('done_toggle').addEventListener('click', function() {
+    this.classList.toggle('active');
+    const hiddenField = document.getElementById('task_done_hidden');
+    const isDone = this.classList.contains('active');
+    hiddenField.value = isDone;
+    this.textContent = isDone ? '✓ Concluída' : '⌛ Pendente';
+  });
+</script>

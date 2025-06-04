@@ -1,0 +1,28 @@
+<div class="edit-container">
+  <%= form_for @task, html: { class: 'task-form' } do |form| %>
+    <div class="task-card">
+      <div class="task-header">
+        <div class="editable-field">
+          <%= form.label :task, "Tarefa:", class: 'field-label' %>
+          <%= form.text_field :task, class: 'field-input', placeholder: 'Digite o título da tarefa' %>
+        </div>
+
+        <div class="editable-field">
+          <%= form.label :date, "Data:", class: 'field-label' %>
+          <%= form.text_field :date, class: 'field-input', placeholder: 'DD/MM/AAAA' %>
+        </div>
+      </div>
+
+      <div class="task-description">
+        <%= form.label :description, "Descrição:", class: 'field-label' %>
+        <%= form.text_area :description, class: 'field-textarea', placeholder: 'Descreva sua tarefa...', rows: 4 %>
+      </div>
+
+
+      <div class="form-actions">
+        <%= form.submit "Criar tarefa", class: 'save-button' %>
+        <%= link_to "Voltar", tasks_path, class: 'cancel-button' %>
+      </div>
+    </div>
+  <% end %>
+</div>
